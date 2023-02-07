@@ -29,7 +29,7 @@ Summary: An analysis of how Washington DC's main bike rental company has recover
 Concepts: 
 * Two sample t-tests <br> 
 * Bootstrap tests <br>
-* Linear Regression <br>
+* Linear Regression  
 
 <br><br>
 
