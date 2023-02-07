@@ -30,3 +30,15 @@ Concepts:
 * Two sample t-tests <br> 
 * Bootstrap tests <br>
 * Linear Regression <br>
+
+<br><br>
+
+## Sports Ball Classifier ##
+Summary: Using Deep Learning and Computer Vision to build an image classifier. 
+
+<br> 
+
+Concepts: 
+* Convolutional Neural Networks <br> 
+* Resnet34 <br>
+* Computer Vision <br>
