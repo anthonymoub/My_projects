@@ -1,44 +1,8 @@
 # My_projects
-This Repo has several of my Data Science projects i have worked on recently.  
-A detailed data story and explanation for each project can be found on my portfolio website.
-<br><br>
-Portfolio Website: https://anthonymoubarak.georgetown.domains/501-project-website/index.html
-<br><br>
-Below is a summary and brief explanation of what Data Science/Machine Learningconcepts where used in each project: <br><br>
+This project was the capstone project of my IBM Data Science Professional Certificate and focused on analyzing the NYC311's top complaints received, how are they distirbuted from a termporal and geospatial point of view, and what are the possible contributors of every complaint type. The project was dnoe a while back and everything was done on 1 file. <br><br>
 
-## Music Popularity ##
-Summary: A Data Science oriented take on how music popularity has changed and evolved ever since the 1960s and what are the factors that 
-contribute towards making music popular.
+Concepts: <br>
+* EDA <br>
+* Time Series <br>
+* Neural Networks <br>
 
-<br> 
-
-Concepts: 
-* Data gathering using APIs <br> 
-* Naive Bayes Classification <br>
-* Decision Trees <br>
-* Support Vector Machines <br>
-* K means, DBSCAN, and Hierarchical clustering <br>
-* Feature Engineering
-<br><br>
-
-## Capital Bikeshare analysis ##
-Summary: An analysis of how Washington DC's main bike rental company has recovered after the Covid 19 pandemic and a look at the behavioral differences of its different riders.
-
-<br> 
-
-Concepts: 
-* Two sample t-tests <br> 
-* Bootstrap tests <br>
-* Linear Regression  
-
-<br><br>
-
-## Sports Ball Classifier ##
-Summary: Using Deep Learning and Computer Vision to build an image classifier. 
-
-<br> 
-
-Concepts: 
-* Convolutional Neural Networks <br> 
-* Resnet34 <br>
-* Computer Vision <br>
