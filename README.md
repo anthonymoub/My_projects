@@ -29,7 +29,9 @@ Summary: An analysis of how Washington DC's main bike rental company has recover
 Concepts: 
 * Two sample t-tests <br> 
 * Bootstrap tests <br>
-* Linear Regression  
+* Statistical Sampling <br>
+* K means clustering
+* Geospatial analysis
 
 <br><br>
 
