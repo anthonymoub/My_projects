@@ -11,4 +11,5 @@ Below is a summary of what each file in contains: <br><br>
 * Geospatial_Clustering: K means clustering based on geospatial coordinates of rides. <br>
 * Geospatial_Clustering: K-means clustering based on geospatial coordinates of rides. <br>
 * Clustering_map: A visual representation of the clustering done. <br>
+* Joining_data: Joining and cleaning of used datasets. <br>
 
