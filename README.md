@@ -35,6 +35,19 @@ Concepts:
 
 <br><br>
 
+## NY311 ##
+Summary: An analysis of the NYC311 complaints and using Neural Networks to predict complaints.
+
+<br> 
+
+Concepts: 
+* Exploratory Data Analysis <br>
+* Time Series analysis <br> 
+* FFT (Fourier Transform) <br>
+* Seasonal Autoregressive Integrated Moving Average (SARIMA) <br>
+* Long Short Term Memory (LSTM) <br><br>
+
+
 ## Sports Ball Classifier ##
 Summary: Using Deep Learning and Computer Vision to build an image classifier. 
 
