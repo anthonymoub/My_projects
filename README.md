@@ -33,7 +33,7 @@ Concepts:
 * K means clustering
 * Geospatial analysis
 
-<br><br>
+<br> 
 
 ## NY311 ##
 Summary: An analysis of the NYC311 complaints and using Neural Networks to predict complaints.
