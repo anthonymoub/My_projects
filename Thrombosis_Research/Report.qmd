@@ -1,11 +1,11 @@
 
 ---
-title: "HW2-Anthony Moubarak-EDA"
+title: "Thrombosis Research-Anthony Moubarak"
 author:
   - name: Anthony Moubarak
     affiliations:
       - name: Georgetown University        
-date: "`r Sys.Date()`"
+date: "February 22 2023"
 format:
     html:
         toc: true
