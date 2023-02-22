@@ -57,3 +57,26 @@ Concepts:
 * Convolutional Neural Networks <br> 
 * Resnet34 <br>
 * Computer Vision <br>
+
+
+## Netflix Dashboard ##
+Summary: Using Tableau to visualize Netflix releases between 2008 and 2020.
+Hosted on: https://anthonymoubarak.georgetown.domains/501-project-website/pages/Netflix_Dashboard/Netflix.html
+
+<br> 
+
+Concepts: 
+* Tableau <br> 
+* Dashboards <br>
+* Computer Vision <br>
+
+## Thrombosis Research ##
+Summary: Exploratory Data Analysis on Thrombosis data to further understand the disease.
+Report hosted on: https://anthonymoubarak.georgetown.domains/501-project-website/pages/Thrombosis/Report.html
+
+<br> 
+
+Concepts: 
+* Data Visualizations <br> 
+* Dealing with messy data <br>
+* Quarto reports <br>
