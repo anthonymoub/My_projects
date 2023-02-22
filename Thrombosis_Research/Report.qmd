@@ -904,4 +904,4 @@ Overall, this research project has highlighted two crucial points. Firstly, thro
 Although my work does not provide a definitive solution for predicting or preventing thrombosis, it serves as a stepping stone towards securing proper funding, obtaining more and better quality data, and building a larger team of scientists to further explore the promising findings of this research.
 
 
-<a href="https://github.com/anly503/hw2-spring-2023-anthonymoub">Github Repo</a>
+<a href="https://github.com/anthonymoub/My_projects/tree/main/Thrombosis_Research">Github Repo</a>
