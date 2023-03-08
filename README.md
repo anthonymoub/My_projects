@@ -80,3 +80,15 @@ Concepts:
 * Data Visualizations <br> 
 * Dealing with messy data <br>
 * Quarto reports <br>
+
+<br>
+
+## Fake News Classifier ##
+Summary: Using Deep Learning, Neural Networks and NLP to classify whether a news article has true or false news.
+
+<br> 
+
+Concepts: 
+* Text Classification <br> 
+* Long Short Term Memory (LSTM) <br>
+* Neural Networks <br>
