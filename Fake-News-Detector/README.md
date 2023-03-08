@@ -1,4 +1,4 @@
-# Sports Ball Classifier
+# Fake News Detector
 This project focuses on using Neural Networks (LSTM model) to create a fake news detector. Briefly, the algorithm's input would be a text document/article,
 and the output would be a binary number of whether the news article is fake (0) or real (1).
 
