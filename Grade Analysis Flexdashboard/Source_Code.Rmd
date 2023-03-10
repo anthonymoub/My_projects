@@ -1,0 +1,324 @@
+---
+title: Student Performance
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+
+
+# includes
+library(flexdashboard)
+rsconnect::setAccountInfo(name='5a56q1-anthony-moubarak', token='BEA425741ED509FEE84A6606BAD34B4E', secret='dPnK/licafFp617ztjp2zd+oc+1qATq8FptaNydW')
+# do all data wrangling here
+
+```
+
+
+Summary
+=======================================================================
+
+Row
+-----------------------------------------------------------------------
+
+### Students {.value-box}
+
+```{r}
+# Add up the numbers of subs across each gw/beam
+
+# Read the dataset from the URL and store it in a variable
+library(readr)
+student_points <- read_csv("https://raw.githubusercontent.com/anly503/datasets/main/student_points.csv")
+
+renderValueBox({
+  valueBox(
+    value = length(unique(student_points$student_name)),
+    color = "primary"
+  )
+})
+```
+
+### Lab points (average)  {.value-box}
+
+```{r}
+labs <- student_points[(student_points$assignment_type == "lab") , ] 
+
+labs$points <- (labs$points/labs$max_points_possible)*100
+  
+  
+renderValueBox({
+  
+  valueBox(
+    value = round(mean((labs$points)), 2),
+    color = "primary"
+  )
+})
+```
+
+### Assignment points (average) {.value-box}
+
+```{r}
+
+hw <- student_points[(student_points$assignment_type == "homework") & (student_points$points > 0) , ] 
+
+#hw$points <- (hw$points/hw$max_points_possible)*100
+
+
+renderValueBox({
+  
+  valueBox(
+    value = round(mean(hw$points) , 2),
+    color = "primary"
+  )
+})
+
+```
+
+
+Row
+-----------------------------------------------------------------------
+
+### Weekly Performance {data-width=840}
+
+
+```{r}
+# Prepare and clean the data  
+
+library(dplyr)
+# Add a column for week
+labs$semester_week <- rep(NA, nrow(labs))
+hw$semester_week <- rep(NA, nrow(hw))
+
+# Fill the week column
+for (i in 1:nrow(labs)) {
+  if (labs$assignment[i] %in% c("lab10", "lab11")) {
+    labs$semester_week[i] <- substring(labs$assignment[i], 4)
+  } else {
+    labs$semester_week[i] <- substring(labs$assignment[i], 5)
+  }
+}
+
+for (i in 1:nrow(hw)) {
+
+    hw$semester_week[i] <- substring(hw$assignment[i], 3)
+  
+}
+
+
+
+# Get the weekly averages 
+
+labs_average <- labs %>%
+  group_by(semester_week) %>%
+  summarize(average_points = mean(points), std_points = sd(points)) %>%
+  mutate(semester_week = as.integer(semester_week)) %>%
+  arrange(semester_week)
+
+hw_average <- hw %>%
+  group_by(semester_week) %>%
+  summarize(average_points = mean(points), std_points = sd(points)*10) %>%
+  mutate(semester_week = as.integer(semester_week)) %>%
+  arrange(semester_week)
+
+hw_average$average_points <- hw_average$average_points*10
+
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+renderPlot({
+# combine the two data frames by adding a new column 'plot' to each data frame
+labs_average$plot <- "lab"
+hw_average$plot <- "homework"
+combined_data <- rbind(labs_average, hw_average)
+
+# plot the combined data using facet_grid
+ggplot(combined_data, aes(x = semester_week, y = average_points, fill = plot)) + 
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = average_points - std_points, ymax = average_points + std_points),
+                width = 0.2, color = "#aa872b") +
+  geom_segment(aes(x = semester_week - 0.2, xend = semester_week + 0.2, 
+                   y = average_points - std_points, yend = average_points - std_points), 
+               color = "#aa872b") +
+  geom_segment(aes(x = semester_week - 0.2, xend = semester_week + 0.2, 
+                   y = average_points + std_points, yend = average_points + std_points), 
+               color = "#aa872b") +
+  labs(x = "Semester Week", y = "Normalized scores out of 100%", 
+       title = "Week by week average scores of students in XU-789", 
+       subtitle = "Large standard deviation indicates a huge variation in student performance") + 
+  scale_fill_manual(values = c("lab" = "#3995A6", "homework" = "#4f79a7")) +
+  facet_wrap(~plot, ncol=1, strip.position = "top", labeller = labeller(plot_label = as.character)) +
+  scale_y_continuous(breaks = seq(0, 100, by = 10)) +
+  scale_x_continuous(breaks = seq(1, 11, by = 1)) +
+  theme(plot.background = element_rect(fill = "#eeeeee"),
+        panel.background = element_rect(fill = "#eeeeee", color = "#eeeeee"),
+        panel.grid.major = element_line(color = "#eeeeee"),
+        panel.grid.minor = element_line(color = '#cfcfcf'),
+        panel.spacing = unit(2, "lines"),
+        legend.position = "none",
+        strip.background = element_blank(),
+        strip.text = element_text(size = 16),
+        strip.text.y = element_text(size = 12),
+        axis.text.y = element_text(color = "black", size = 12, margin = margin(r = 8)),
+        axis.ticks.x = element_line(color = "grey"),
+        plot.title = element_text(face = "bold", size = 18),
+        plot.subtitle = element_text(size = 12),
+        axis.text.x = element_text(size = 12),
+        axis.title.x = element_text(size = 14),
+        axis.title.y = element_text(size = 14)) +
+  theme(strip.text.y = element_text(size = 12))
+
+
+  })
+
+```
+
+### Student scores {data-width=300}
+
+```{css}
+.chart-shim {
+      overflow: auto;
+    }
+```
+
+```{r}
+
+# Prepare data 
+
+# Redefine data (labs amd hw)
+
+labs <- student_points[(student_points$assignment_type == "lab") , ] 
+hw <- student_points[(student_points$assignment_type == "homework") , ] 
+
+
+labs$points <- (labs$points/labs$max_points_possible)*100
+hw$points <- (hw$points/hw$max_points_possible)*100
+
+student_labs <- labs %>% 
+                 group_by(student_name) %>%
+                summarize(average_points = round(mean(points),2)) 
+  
+student_hw <- hw %>% 
+               group_by(student_name) %>%
+              summarize(average_points = round(mean(points) , 2)) 
+
+merged_df <- merge(student_labs, student_hw, by = "student_name", all = FALSE)
+  
+
+merged_df <- merged_df %>% 
+                arrange(desc(`average_points.x`), desc('average_points.y'))
+
+
+# Display table 
+
+library(gt)
+library(gtExtras)
+
+div(
+  h2(style = "text-align:center; font-weight:bold; border-top: 3px solid #9E9E9E; padding-top: 10px;", "Student Scores"),
+  h4(style = "text-align:center; font-weight:normal;", "Average normalized scores for homeworks and labs"),
+  div(style = "height:800px; overflow-y: scroll; margin: 0 auto;", 
+      gt(merged_df) %>% cols_label(
+        student_name = md("**Student**"),
+        average_points.x = md("**Lab points (%)**"),
+        average_points.y = md("**Homework points (%)**")
+      ) %>%
+      tab_style(
+        locations = cells_column_labels(everything()),
+        style = list(
+          # Give a thick border below
+          cell_borders(sides = "bottom", weight = px(3)),
+          # Make text bold
+          cell_text(weight = "bold"),
+          # Give a thick border on top
+          cell_borders(sides = "top", weight = px(1.5))
+          
+        )
+      )
+  )
+)
+
+
+```
+
+Data
+=======================================================================
+
+Inputs {.sidebar data-width=250}
+-----------------------------------------------------------------------
+
+### Select student
+
+```{r}
+
+# create dropdown input
+# create dropdown input with custom CSS
+dropdown_input <- tags$div(
+  selectInput(
+    inputId = "student_name",
+    label = "Student Name:",
+    choices = c("All Students", unique(student_points$student_name))
+  ),
+  style = "width: 200px;"
+)
+
+# display dropdown input in a fluidRow
+fluidRow(
+  column(4, dropdown_input)
+)
+
+
+```
+
+
+
+Row
+-----------------------------------------------------------------------
+
+### Raw data
+```{r}
+library(DT)
+
+# Create datatable with extension buttons and scrollX
+my_table <- reactive({
+  datatable(student_points,
+            rownames = TRUE,
+            extensions = 'Buttons',
+            options = list(scrollX = TRUE,
+                           pageLength = 30,
+                           dom = 'Blfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+})
+
+
+
+# Render the datatable based on the input
+output$table <- renderDT({
+  if (input$student_name == "All Students") {
+    my_table()
+  } else {
+    selected_student_points <- student_points[student_points$student_name == input$student_name, ]
+    datatable(selected_student_points,
+              rownames = TRUE,
+              extensions = 'Buttons',
+              options = list(scrollX = TRUE,
+                             pageLength = 30,
+                             dom = 'Blfrtip',
+                             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+              )
+    )
+  }
+}, server = TRUE)
+
+
+# Render the table in the dashboard
+DT::dataTableOutput("table")
+
+
+```
+
+
