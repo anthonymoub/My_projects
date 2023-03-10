@@ -1,4 +1,4 @@
-## Netflix Recommender ##
+## Grade Analysis Dashboard ##
 Summary: Using R shiny and Flexdashboard to create a real time dashboard of a Georgetown class's student performances on homework and lab.
 
 <br> 
