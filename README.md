@@ -1,4 +1,4 @@
-# My_projects
+# Data Science Projects
 This Repo has several of my Data Science projects i have worked on recently.  
 A detailed data story and explanation for each project can be found on my portfolio website.
 <br><br>
